@@ -1,6 +1,7 @@
 package clause
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -12,6 +13,7 @@ func testSelect(t *testing.T) {
 	clause.Set(WHERE, "Name = ?", "Tom")
 	clause.Set(ORDERBY, "Age ASC")
 	sql, vars := clause.Build(SELECT, WHERE, ORDERBY, LIMIT)
+	fmt.Println(sql)
 	t.Log(sql, vars)
 	if sql != "SELECT * FROM User WHERE Name = ? ORDER BY Age ASC LIMIT ?" {
 		t.Fatal("failed to build SQL")
