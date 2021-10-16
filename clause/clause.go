@@ -1,6 +1,9 @@
 package clause
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 type Clause struct {
 	sql     map[Type]string
@@ -16,6 +19,9 @@ const (
 	LIMIT
 	WHERE
 	ORDERBY
+	UPDATE
+	DELETE
+	COUNT
 )
 
 func (c *Clause) Set(name Type, vars ...interface{}) {
@@ -31,6 +37,7 @@ func (c *Clause) Set(name Type, vars ...interface{}) {
 func (c *Clause) Build(orders ...Type) (string, []interface{}) {
 	var sqls []string
 	var vars []interface{}
+	fmt.Println(c.sql)
 	for _, order := range orders {
 		if sql, ok := c.sql[order]; ok {
 			sqls = append(sqls, sql)
